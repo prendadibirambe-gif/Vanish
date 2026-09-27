@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spesial Untukmu ❤️</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Efek Kelopak Hati Jatuh */
+    .heart-fall {
+      position: absolute;
+      top: -10px;
+      color: #e63946;
+      font-size: 20px;
+      user-select: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(105vh) rotate(360deg);
+      }
+    }
+
+    /* Kartu Utama */
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      text-align: center;
+      max-width: 380px;
+      width: 90%;
+      z-index: 10;
+      transition: all 0.3s ease;
+    }
+
+    .card img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+    }
+
+    h2 {
+      color: #d62828;
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: #4a4a4a;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* Tombol Interaktif */
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      position: relative;
+      min-height: 45px;
+    }
+
+    button {
+      background-color: #ff4b2b;
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 25px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 75, 43, 0.3);
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    #btnNo {
+      background-color: #6c757d;
+      box-shadow: 0 4px 10px rgba(108, 117, 125, 0.3);
+    }
+
+    /* Sembunyikan Slide */
+    .slide {
+      display: none;
+    }
+
+    .slide.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Musik Latar (Opsional) -->
+  <audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Slide 1: Pembuka -->
+  <div class="card slide active" id="slide1">
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnd6aXF3bnR3MnRzcGt3ZjE5bzRmcG5rd3RpaXV2bGJlZHJvdWVmdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LpDmM2w93M628C471A/giphy.gif" alt="Cute GIF">
+    <h2>Halo Sayang! ❤️</h2>
+    <p>Aku punya sesuatu buat kamu nih, coba klik tombol di bawah ya!</p>
+    <button onclick="nextSlide(2)">Buka PESAN ✨</button>
+  </div>
+
+  <!-- Slide 2: Pertanyaan -->
+  <div class="card slide" id="slide2">
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Y5YnkxbnBsaXZ4NW9mdXRzazNnYzMwb3M2bzF0MnBmbXNwdDFreSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/c6wv3M8B0qUda/giphy.gif" alt="Cute GIF">
+    <h2>Mau Tanya Dong...</h2>
+    <p>Kamu sayang ga sih sama aku? 🥺</p>
+    <div class="btn-group">
+      <button onclick="nextSlide(3)">Sayang Banget! 🥰</button>
+      <button id="btnNo" onmouseover="moveButton()" onclick="moveButton()">Nggak 😜</button>
+    </div>
+  </div>
+
+  <!-- Slide 3: Jawaban / Pesan Akhir -->
+  <div class="card slide" id="slide3">
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmVtdTh1azFvMW52ODU3amJ6aGtxb2RsaThzcXRic25yZ3E1d3psOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26hpKMT7M5vNUZBy8/giphy.gif" alt="Cute GIF">
+    <h2>Awww, Makasih Ya! 💖</h2>
+    <p id="typedText">Aku juga sayang banget sama kamu. Makasih udah selalu ada dan bikin hariku selalu gembira! Jangan galau-galau lagi yaa! ✨</p>
+    <button onclick="sendWhatsApp()">Kirim Pesan ke WhatsApp 💬</button>
+  </div>
+
+  <script>
+    // Memutar musik saat tombol pertama diklik
+    function playMusic() {
+      const music = document.getElementById('bgMusic');
+      music.play().catch(() => {});
+    }
+
+    // Pindah Slide
+    function nextSlide(slideNumber) {
+      playMusic();
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      document.getElementById('slide' + slideNumber).classList.add('active');
+    }
+
+    // Tombol "Nggak" kabur saat di-hover/klik
+    function moveButton() {
+      const btnNo = document.getElementById('btnNo');
+      const x = Math.random() * (window.innerWidth - 120);
+      const y = Math.random() * (window.innerHeight - 50);
+      
+      btnNo.style.position = 'fixed';
+      btnNo.style.left = x + 'px';
+      btnNo.style.top = y + 'px';
+    }
+
+    // Kirim Balasan ke WhatsApp
+    function sendWhatsApp() {
+      const nomorWA = "628xxxxxxxxxx"; // Ganti dengan nomor WhatsApp kamu (awali dengan 62)
+      const pesan = encodeURIComponent("Aku udah buka webnya! Aku juga sayang banget sama kamu ❤️");
+      window.open(`https://wa.me/${nomorWA}?text=${pesan}`, '_blank');
+    }
+
+    // Efek Hati Jatuh
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart-fall');
+      heart.innerText = ['❤️', '💖', '💕', '🌸'][Math.floor(Math.random() * 4)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+</body>
+</html>
